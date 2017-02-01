@@ -136,8 +136,20 @@ func (tg *TargetGroup) watchConsulService() <-chan TargetSet {
 
 			m := make(TargetSet)
 			for _, service := range services {
-				// The Consul node name is assumed to be the instance id
-				m.Add(service.Node.Node, service.Service.Port)
+				// SimilarWeb: instance_id comes from the node meta
+				instance_id, ok := service.Node.Meta['instance_id']
+
+				if !ok {
+					log.Printf(
+										"Error inspecting Consul service %q for target group %q because it has no instance_id meta!",
+										serviceName,
+										tg.arn,
+									)
+				}
+				else
+				{
+					m.Add(instance_id, service.Service.Port)
+				}
 			}
 
 			ret <- m
