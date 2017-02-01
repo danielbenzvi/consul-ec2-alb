@@ -145,9 +145,7 @@ func (tg *TargetGroup) watchConsulService() <-chan TargetSet {
 										serviceName,
 										tg.arn,
 									)
-				}
-				else
-				{
+				} else {
 					m.Add(instance_id, service.Service.Port)
 				}
 			}
