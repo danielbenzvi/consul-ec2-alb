@@ -137,7 +137,7 @@ func (tg *TargetGroup) watchConsulService() <-chan TargetSet {
 			m := make(TargetSet)
 			for _, service := range services {
 				// SimilarWeb: instance_id comes from the node meta
-				instance_id, ok := service.Node.Meta['instance_id']
+				instance_id, ok := service.Node.Meta["instance_id"]
 
 				if !ok {
 					log.Printf(
